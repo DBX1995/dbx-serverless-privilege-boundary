@@ -67,3 +67,22 @@ resource "aws_iam_role_policy" "lambda_s3_put" {
   role   = aws_iam_role.lambda_execution.id
   policy = data.aws_iam_policy_document.lambda_s3_put.json
 }
+
+data "aws_iam_policy_document" "low_privilege_lambda_invoke" {
+  statement {
+    sid     = "AllowInvokePrivilegedWriter"
+    effect  = "Allow"
+    actions = ["lambda:InvokeFunction"]
+
+    resources = [
+      aws_lambda_function.privileged_writer.arn
+    ]
+  }
+}
+
+resource "aws_iam_role_policy" "low_privilege_lambda_invoke" {
+  name = "dbx-low-privilege-lambda-invoke"
+
+  role   = aws_iam_role.low_privilege_caller.id
+  policy = data.aws_iam_policy_document.low_privilege_lambda_invoke.json
+}
