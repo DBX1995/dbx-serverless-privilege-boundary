@@ -11,3 +11,5 @@ crash.log
 crash.*.log
 
 lambda_package.zip
+# Local runtime test artifacts
+test-output/

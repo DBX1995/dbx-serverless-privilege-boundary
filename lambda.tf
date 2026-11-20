@@ -9,11 +9,11 @@ resource "aws_lambda_function" "privileged_writer" {
   runtime = "python3.13"
 
   environment {
-  variables = {
-    PROTECTED_BUCKET     = aws_s3_bucket.protected.bucket
-    AUTHORIZATION_TOKEN  = var.authorization_token
+    variables = {
+      PROTECTED_BUCKET    = aws_s3_bucket.protected.bucket
+      AUTHORIZATION_TOKEN = var.authorization_token
+    }
   }
-}
 
   tags = {
     Project     = "DBX Serverless Privilege Boundary Lab"
